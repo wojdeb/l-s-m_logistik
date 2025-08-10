@@ -8,50 +8,68 @@
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-
   <style>
-    /* kontener jak max-w-7xl + padding */
-    .container-pad { max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+    /* =========================
+       Layout helpers
+    ========================== */
+    .container-pad { max-width: 80rem; margin: 0 auto; padding-left: 1rem; padding-right: 1rem; }
     @media (min-width:640px){ .container-pad{ padding-left: 1.5rem; padding-right: 1.5rem; } }
     @media (min-width:1024px){ .container-pad{ padding-left: 2rem; padding-right: 2rem; } }
+    .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 
-    /* przyciski */
+    /* =========================
+       Buttons
+    ========================== */
     .btn { display:inline-flex; align-items:center; justify-content:center; border-radius:.5rem; padding:.75rem 1.25rem; font-weight:600; transition:background .2s, box-shadow .2s, color .2s, opacity .2s; }
     .btn-primary { background:#f59e0b; color:#0f172a; }
     .btn-primary:hover { background:#fbbf24; }
     .btn-outline { border:1px solid rgba(255,255,255,.2); color:#fff; }
     .btn-outline:hover { background:rgba(255,255,255,.08); }
-    .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 
-    /* slider */
-    .slider-track { display:flex; transition: transform .6s ease; }
-    .slider-item { flex:0 0 100%; }
-
-    .wrap-balance { text-wrap: balance; }           
-    .wrap-any { overflow-wrap: anywhere; hyphens: auto; }
-    .safe-wrap { overflow-wrap:anywhere; word-break:break-word; hyphens:auto; }
-    
+    /* =========================
+       Typography helpers
+    ========================== */
+    .wrap-any{ overflow-wrap:anywhere; word-break:break-word; }
     .hero-copy{
-    overflow-wrap:anywhere;
-    word-break:break-word;
-    hyphens:auto;
-    max-width:22rem;         
-    padding-right:.5rem;      
+      overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+      max-width:22rem; padding-right:.5rem; /* mobile safety */
     }
-    @media (min-width:640px){   
-    .hero-copy{ max-width:34rem; padding-right:0; }
-    }
+    @media (min-width:640px){ .hero-copy{ max-width:34rem; padding-right:0; } }
 
+    /* =========================
+       Gallery (slider)
+       - fixed viewport height
+       - contain images (no cropping)
+       - visible nav buttons on top
+    ========================== */
+    #galleryViewport { position: relative; height: clamp(420px, 45vw, 640px); }
+    #galleryViewport .slider-track { position:relative; z-index:0; display:flex; height:100%; transition: transform .6s ease; }
+    #galleryViewport .slider-item { flex:0 0 100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(2,6,23,.6); border-radius: .75rem; }
+    #galleryViewport .slider-item > img {
+      width:100% !important; height:100% !important;
+      object-fit:contain !important; object-position:center center !important;
+      display:block;
+    }
+    #galleryViewport .nav-btn{
+      position:absolute; z-index:20; width:44px; height:44px;
+      display:grid; place-items:center; color:#fff;
+      background:rgba(2,6,23,.75); border:1px solid rgba(255,255,255,.35);
+      border-radius:9999px; box-shadow:0 6px 20px rgba(0,0,0,.35); backdrop-filter: blur(4px);
+      cursor:pointer;
+    }
+    #galleryViewport .nav-btn:hover{ background:rgba(2,6,23,.9); }
+    #galleryViewport .nav-btn svg{ width:22px; height:22px; fill:#fff; display:block; }
   </style>
 </head>
 
 <body class="bg-slate-950 text-slate-100 antialiased">
-  <!-- NAV -->
+  <!-- =========================
+       NAV
+  ========================== -->
   <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60 border-b border-white/10">
     <div class="container-pad">
       <div class="flex h-16 items-center justify-between">
         <a href="#top" class="flex items-center gap-3">
-          <!-- LOGO: wgraj plik jako logo.jpg obok index.html albo zmień ścieżkę -->
           <img src="logo.jpg" alt="L-S-M Logistik" class="h-10 md:h-12 w-auto object-contain" />
           <span class="text-lg md:text-xl font-semibold tracking-wide">L-S-M&nbsp;Logistik</span>
         </a>
@@ -65,19 +83,21 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- =========================
+       HERO
+  ========================== -->
   <section id="top" class="relative lg:overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-[radial-gradient(1200px_600px_at_80%_-10%,rgba(251,191,36,.20),transparent),radial-gradient(900px_500px_at_-10%_10%,rgba(56,189,248,.15),transparent)]"></div>
     <div class="container-pad py-20 sm:py-28 lg:py-36">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-            <h1 class="wrap-any text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-snug tracking-tight pr-2">
-                Transport <span class="text-amber-400">&</span> Magazynowanie
-            </h1>                          
-            <p class="hero-copy mt-5 text-slate-300 text-base leading-relaxed">
-                L-S-M Logistik zapewnia bezpieczny i terminowy przewóz ładunków oraz elastyczne rozwiązania magazynowe.
-                Skalujemy zasoby do Twoich potrzeb — od pojedynczych zleceń po długofalową współpracę.
-            </p>
+          <h1 class="wrap-any text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-snug tracking-tight pr-2">
+            Transport <span class="text-amber-400">&</span> Magazynowanie
+          </h1>
+          <p class="hero-copy mt-5 text-slate-300 text-base leading-relaxed">
+            L-S-M Logistik zapewnia bezpieczny i terminowy przewóz ładunków oraz elastyczne rozwiązania magazynowe.
+            Skalujemy zasoby do Twoich potrzeb — od pojedynczych zleceń po długofalową współpracę.
+          </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="#kontakt" class="btn btn-primary">Zapytaj o termin</a>
             <a href="#uslugi" class="btn btn-outline">Poznaj usługi</a>
@@ -89,22 +109,24 @@
             <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-amber-400"></span> Uporządkowane procesy załadunku/rozładunku</li>
           </ul>
         </div>
+
         <div class="relative mb-6 lg:mb-0 flex justify-center lg:pl-12">
-            <img 
-              class="rounded-xl ring-1 ring-white/10 max-h-[380px] max-w-md w-auto object-cover" 
-              src="banner.jpg" 
-              alt="Nowoczesny transport drogowy" 
-            />
-            <div class="absolute -bottom-6 -right-6 hidden sm:block rounded-lg bg-slate-900/80 p-4 ring-1 ring-white/10">
-              <p class="text-sm text-slate-300">Terminowość, bezpieczeństwo, elastyczność.</p>
-            </div>
+          <img 
+            class="rounded-xl ring-1 ring-white/10 max-h-[380px] max-w-md w-auto object-cover" 
+            src="banner.jpg" 
+            alt="Nowoczesny transport drogowy" 
+          />
+          <div class="absolute -bottom-6 -right-6 hidden sm:block rounded-lg bg-slate-900/80 p-4 ring-1 ring-white/10">
+            <p class="text-sm text-slate-300">Terminowość, bezpieczeństwo, elastyczność.</p>
           </div>
-                  
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- USŁUGI -->
+  <!-- =========================
+       SERVICES
+  ========================== -->
   <section id="uslugi" class="border-t border-white/10">
     <div class="container-pad py-16 lg:py-20">
       <div class="grid lg:grid-cols-2 gap-10">
@@ -137,7 +159,9 @@
     </div>
   </section>
 
-  <!-- O FIRMIE (Twój tekst, lekko zredagowany pod web) -->
+  <!-- =========================
+       ABOUT
+  ========================== -->
   <section id="o-firmie" class="border-t border-white/10">
     <div class="container-pad py-16 lg:py-20">
       <div class="max-w-3xl">
@@ -153,21 +177,21 @@
     </div>
   </section>
 
-  <!-- (NIE-NAZYWANA) GALERIA / SLIDER -->
+  <!-- =========================
+       GALLERY (Slider)
+  ========================== -->
   <section id="galeria" class="border-t border-white/10">
     <div class="container-pad py-16 lg:py-20">
       <div class="overflow-hidden rounded-xl ring-1 ring-white/10">
-        <div class="relative">
-          <div class="slider-track" id="sliderTrack">
-            <div class="slider-track" id="sliderTrack"></div>
-          </div>
+        <div id="galleryViewport" class="relative">
+          <div class="slider-track" id="sliderTrack"></div>
 
-          <!-- Sterowanie -->
-          <button id="prevBtn" aria-label="Poprzednie" class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-slate-900/60 p-2 ring-1 ring-white/20 hover:bg-slate-900/80">
-            &#10094;
+          <!-- Prev/Next -->
+          <button id="prevBtn" class="nav-btn left-3 top-1/2 -translate-y-1/2" aria-label="Poprzednie">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
           </button>
-          <button id="nextBtn" aria-label="Następne" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-slate-900/60 p-2 ring-1 ring-white/20 hover:bg-slate-900/80">
-            &#10095;
+          <button id="nextBtn" class="nav-btn right-3 top-1/2 -translate-y-1/2" aria-label="Następne">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
           </button>
         </div>
       </div>
@@ -175,7 +199,9 @@
     </div>
   </section>
 
-  <!-- CTA / PAS -->
+  <!-- =========================
+       CTA
+  ========================== -->
   <section class="border-t border-white/10 bg-gradient-to-r from-amber-500/10 to-cyan-400/10">
     <div class="container-pad py-10">
       <div class="flex flex-col items-center gap-4 text-center">
@@ -185,25 +211,26 @@
     </div>
   </section>
 
-  <!-- KONTAKT -->
-<!-- KONTAKT -->
-<section id="kontakt" class="border-t border-white/10">
+  <!-- =========================
+       CONTACT
+  ========================== -->
+  <section id="kontakt" class="border-t border-white/10">
     <div class="container-pad py-16 lg:py-20">
       <div class="grid lg:grid-cols-2 gap-10">
         <div>
           <h2 class="text-2xl font-bold">Kontakt</h2>
           <p class="mt-3 text-slate-300">Zadzwoń lub napisz — odpowiadamy szybko i konkretnie.</p>
           <ul class="mt-6 space-y-2 text-slate-300"> 
-            <li><strong>Telefon:</strong> <a class="hover:text-amber-400" href="tel:+48XXXXXXXXX">+48&nbsp;782&nbsp;417&nbsp;070</a></li>
-            <li><strong>E-mail:</strong> <a class="hover:text-amber-400" href="mailto:kontakt@twojmail.pl">lsmlogistikpl@gmail.com</a></li>
+            <li><strong>Telefon:</strong> <a class="hover:text-amber-400" href="tel:+48782417070">+48&nbsp;782&nbsp;417&nbsp;070</a></li>
+            <li><strong>E-mail:</strong> <a class="hover:text-amber-400" href="mailto:biuro@lsmlogistik.pl">biuro@lsmlogistik.pl</a></li>
             <li><strong>Biuro:</strong> Śląska 58A, Wręczyca Wielka</li>
           </ul>
           <div class="mt-6 flex items-center gap-4">
             <a aria-label="Facebook" href="https://www.facebook.com/profile.php?id=61577024220905" class="text-slate-300 hover:text-amber-400">Facebook</a>
           </div>
         </div>
-  
-        <!-- Mapa Google -->
+
+        <!-- Map -->
         <div class="bg-slate-900/40 rounded-xl ring-1 ring-white/10 overflow-hidden">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2543.402093230501!2d18.913167315730406!3d50.87918987953979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4710ad8a9cb1d5e5%3A0x777b915d0e3d03bc!2s%C5%9Al%C4%85ska%2058A%2C%2042-130%20Wr%C4%99czyca%20Wielka!5e0!3m2!1spl!2spl!4v1691680000000!5m2!1spl!2spl"
@@ -213,8 +240,10 @@
       </div>
     </div>
   </section>
-  
 
+  <!-- =========================
+       FOOTER
+  ========================== -->
   <footer class="border-t border-white/10">
     <div class="container-pad py-8 text-sm text-slate-400 flex flex-col md:flex-row items-center justify-between gap-3">
       <p>&copy; <span id="year"></span> L-S-M Logistik. Wszelkie prawa zastrzeżone.</p>
@@ -222,14 +251,16 @@
     </div>
   </footer>
 
-  <!-- FLOATING CONTACT WIDGET (telefon + e-mail) -->
+  <!-- =========================
+       CONTACT FAB
+  ========================== -->
   <div id="contactWidget" class="fixed bottom-5 right-5 z-[60]">
     <div id="contactPanel" class="hidden mb-3 w-64 rounded-xl bg-slate-900/95 p-3 ring-1 ring-white/10 shadow-soft">
       <a href="tel:+48782417070" class="btn btn-primary w-full mb-2">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.6a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.61a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.24 1.02l-2.32 2.21z"/></svg>
         Zadzwoń
       </a>
-      <a href="mailto:lsmlogistikpl@gmail.com" class="btn btn-outline w-full">
+      <a href="mailto:biuro@lsmlogistik.pl" class="btn btn-outline w-full">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         Napisz e-mail
       </a>
@@ -241,48 +272,65 @@
     </button>
   </div>
 
-  <!-- JS -->
+  <!-- =========================
+       JS
+  ========================== -->
   <script>
-    // Rok w stopce
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Slider
+    // ===== Gallery: build slides from /gallery/1.jpg..N.jpg
     const track = document.getElementById('sliderTrack');
-    // === GALERIA ===
-    const galleryCount = 17;           
-    const galleryPath  = 'gallery';   
-
-    for (let i = 1; i <= galleryCount; i++) {
-    const wrap = document.createElement('div');
-    wrap.className = 'slider-item';
-
-    const img = document.createElement('img');
-    img.className = 'w-full h-[280px] sm:h-[420px] object-cover';
-    img.src = `${galleryPath}/${i}.jpg`;
-    img.alt = `Realizacja ${i}`;
-    img.loading = 'lazy';
-
-    wrap.appendChild(img);
-    track.appendChild(wrap);
+    const GALLERY_COUNT = 17;
+    const GALLERY_PATH  = 'gallery';
+    track.innerHTML = '';
+    for (let i = 1; i <= GALLERY_COUNT; i++) {
+      const slide = document.createElement('div');
+      slide.className = 'slider-item';
+      const img = new Image();
+      img.src = `${GALLERY_PATH}/${i}.jpg`;
+      img.alt = `Realizacja ${i}`;
+      img.loading = 'lazy';
+      slide.appendChild(img);
+      track.appendChild(slide);
     }
-    // === /GALERIA ===
 
+    // ===== Slider: autoplay + manual nav (no double intervals)
     const items = track.children;
     let index = 0;
-    let timer;
-    function goTo(i) { index = (i + items.length) % items.length; track.style.transform = `translateX(-${index * 100}%)`; }
+    let timer = null;
+    const INTERVAL_MS = 4000;
+    const ANIM_MS = 600;
+    let animating = false;
+
+    function goTo(i){
+      if (animating) return;
+      animating = true;
+      index = (i + items.length) % items.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      setTimeout(() => { animating = false; }, ANIM_MS + 50);
+    }
     function next(){ goTo(index + 1); }
     function prev(){ goTo(index - 1); }
+
+    function autoplay(){
+      if (timer) return; // guard: keep single interval
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      timer = setInterval(next, INTERVAL_MS);
+    }
+    function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+    function restart(){ stop(); autoplay(); }
+
     document.getElementById('nextBtn').addEventListener('click', () => { next(); restart(); });
     document.getElementById('prevBtn').addEventListener('click', () => { prev(); restart(); });
-    function autoplay() { timer = setInterval(next, 4000); }
-    function stop() { clearInterval(timer); }
-    function restart(){ stop(); autoplay(); }
-    track.parentElement.addEventListener('mouseenter', stop);
-    track.parentElement.addEventListener('mouseleave', autoplay);
+
+    const sliderViewport = track.parentElement;
+    sliderViewport.addEventListener('mouseenter', stop);
+    sliderViewport.addEventListener('mouseleave', autoplay);
+
     window.addEventListener('load', () => { goTo(0); autoplay(); });
 
-    // Floating Contact Widget
+    // ===== Contact FAB
     const fab = document.getElementById('contactFab');
     const panel = document.getElementById('contactPanel');
     function togglePanel(force){
