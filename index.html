@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#0f172a" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="script.js?v=1" defer></script>
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="style.css?v=1" />
   </head>
 
   <body class="bg-slate-950 text-slate-100 antialiased">
@@ -33,6 +33,81 @@
               >L-S-M&nbsp;Logistik</span
             >
           </a>
+
+          <!-- MOBILE lang switcher -->
+          <div class="md:hidden ml-auto flex items-center gap-2">
+            <button
+              class="lang-btn lang-trigger"
+              data-lang="pl"
+              aria-label="Polski"
+              aria-pressed="false"
+            >
+              <!-- PL -->
+              <svg
+                class="flag"
+                viewBox="0 0 60 60"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <clipPath id="cpl"><circle cx="30" cy="30" r="30" /></clipPath>
+                <g clip-path="url(#cpl)">
+                  <rect width="60" height="30" y="0" fill="#fff" />
+                  <rect width="60" height="30" y="30" fill="#DC143C" />
+                </g>
+              </svg>
+            </button>
+            <button
+              class="lang-btn lang-trigger"
+              data-lang="en"
+              aria-label="English"
+              aria-pressed="false"
+            >
+              <!-- UK -->
+              <svg
+                class="flag"
+                viewBox="0 0 60 60"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <clipPath id="cen"><circle cx="30" cy="30" r="30" /></clipPath>
+                <g clip-path="url(#cen)">
+                  <rect width="60" height="60" fill="#012169" />
+                  <path
+                    d="M0,0 60,60 M60,0 0,60"
+                    stroke="#fff"
+                    stroke-width="12"
+                  />
+                  <path
+                    d="M0,0 60,60 M60,0 0,60"
+                    stroke="#C8102E"
+                    stroke-width="6"
+                  />
+                  <rect x="24" width="12" height="60" fill="#fff" />
+                  <rect y="24" width="60" height="12" fill="#fff" />
+                  <rect x="26" width="8" height="60" fill="#C8102E" />
+                  <rect y="26" width="60" height="8" fill="#C8102E" />
+                </g>
+              </svg>
+            </button>
+            <button
+              class="lang-btn lang-trigger"
+              data-lang="de"
+              aria-label="Deutsch"
+              aria-pressed="false"
+            >
+              <!-- DE -->
+              <svg
+                class="flag"
+                viewBox="0 0 60 60"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <clipPath id="cde2"><circle cx="30" cy="30" r="30" /></clipPath>
+                <g clip-path="url(#cde2)">
+                  <rect width="60" height="60" fill="#000" />
+                  <rect y="20" width="60" height="20" fill="#DD0000" />
+                  <rect y="40" width="60" height="20" fill="#FFCE00" />
+                </g>
+              </svg>
+            </button>
+          </div>
 
           <nav class="hidden md:flex items-center gap-6 text-sm">
             <a
@@ -60,8 +135,9 @@
             <!-- Lang switch -->
             <div class="ml-4 flex items-center gap-2">
               <button
-                class="lang-btn"
+                class="lang-btn lang-trigger"
                 id="lang-pl"
+                data-lang="pl"
                 aria-label="Polski"
                 aria-pressed="false"
               >
@@ -81,8 +157,9 @@
                 </svg>
               </button>
               <button
-                class="lang-btn"
+                class="lang-btn lang-trigger"
                 id="lang-en"
+                data-lang="en"
                 aria-label="English"
                 aria-pressed="false"
               >
@@ -113,8 +190,9 @@
                 </svg>
               </button>
               <button
-                class="lang-btn"
+                class="lang-btn lang-trigger"
                 id="lang-de"
+                data-lang="de"
                 aria-label="Deutsch"
                 aria-pressed="false"
               >
@@ -205,7 +283,7 @@
           <div class="relative mb-6 lg:mb-0 flex justify-center lg:pl-12">
             <img
               class="rounded-xl ring-1 ring-white/10 max-h-[380px] max-w-md w-auto object-cover"
-              src="banner.jpg"
+              src="hero_picture.jpg"
               alt="Nowoczesny transport drogowy"
             />
             <div
@@ -262,6 +340,16 @@
                 <span data-i18n="svc.transport.b5"
                   >Transport przestrzenny — naczepy MEGA</span
                 >
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-2 h-2 w-2 rounded-full bg-amber-400"></span>
+                <span data-i18n="svc.transport.b6"
+                  >Transport materiałów niebezpiecznych (ADR)</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-2 h-2 w-2 rounded-full bg-amber-400"></span>
+                <span data-i18n="svc.transport.b7">Transport odpadów</span>
               </li>
             </ul>
           </div>

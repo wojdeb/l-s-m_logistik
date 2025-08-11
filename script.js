@@ -149,6 +149,8 @@
           "fab.mail": "Napisz e-mail",
           "svc.transport.b4": "Transport kręgów stali (naczepa Coilmulde)",
           "svc.transport.b5": "Transport przestrzenny — naczepy MEGA",
+          'svc.transport.b6':'Transport materiałów niebezpiecznych (ADR)',
+          'svc.transport.b7':'Transport odpadów',
         },
         en: {
           "nav.services": "Services",
@@ -202,6 +204,8 @@
           "fab.mail": "Send email",
           "svc.transport.b4": "Steel coil transport (Coilmulde trailers)",
           "svc.transport.b5": "High-volume transport — MEGA trailers",
+          'svc.transport.b6':'Dangerous goods transport (ADR)',
+          'svc.transport.b7':'Waste transport',
         },
         de: {
           "nav.services": "Leistungen",
@@ -256,46 +260,37 @@
           "fab.mail": "E-Mail schreiben",
           "svc.transport.b4": "Stahlcoil-Transporte (Coilmulde-Auflieger)",
           "svc.transport.b5": "Volumentransporte — MEGA-Auflieger",
+          'svc.transport.b6':'Gefahrguttransporte (ADR)',
+          'svc.transport.b7':'Abfalltransporte',
         },
       };
 
       // Apply translations
-      function applyI18n(lang) {
-        document.documentElement.lang =
-          lang === "en" ? "en" : lang === "de" ? "de" : "pl";
-        document.querySelectorAll("[data-i18n]").forEach((el) => {
-          const key = el.getAttribute("data-i18n");
-          const dict = i18n[lang] || i18n.pl;
-          if (dict[key] !== undefined) el.innerHTML = dict[key];
-        });
-        // Toggle pressed state
-        document
-          .getElementById("lang-pl")
-          .setAttribute("aria-pressed", String(lang === "pl"));
-        document
-          .getElementById("lang-en")
-          .setAttribute("aria-pressed", String(lang === "en"));
-        document
-          .getElementById("lang-de")
-          .setAttribute("aria-pressed", String(lang === "de"));
-      }
+        function applyI18n(lang) {
+        document.documentElement.lang = (lang === "en" ? "en" : lang === "de" ? "de" : "pl");
 
-      function setLang(lang) {
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            const dict = i18n[lang] || i18n.pl;
+            if (dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+
+        // Mark active button on ALL language buttons (desktop + mobile)
+        document.querySelectorAll(".lang-trigger").forEach((btn) => {
+            btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
+        });
+        }
+
+        function setLang(lang) {
         localStorage.setItem("lsm_lang", lang);
         applyI18n(lang);
-      }
+        }
 
-      // Init language
-      const saved = localStorage.getItem("lsm_lang") || "pl";
-      applyI18n(saved);
+        // Init
+        const saved = localStorage.getItem("lsm_lang") || "pl";
+        applyI18n(saved);
 
-      // Lang switch handlers
-      document
-        .getElementById("lang-pl")
-        .addEventListener("click", () => setLang("pl"));
-      document
-        .getElementById("lang-en")
-        .addEventListener("click", () => setLang("en"));
-      document
-        .getElementById("lang-de")
-        .addEventListener("click", () => setLang("de"));
+        // Bind clicks for ALL language buttons
+        document.querySelectorAll(".lang-trigger").forEach((btn) => {
+        btn.addEventListener("click", () => setLang(btn.dataset.lang));
+        });
