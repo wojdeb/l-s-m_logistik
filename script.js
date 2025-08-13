@@ -215,7 +215,7 @@
           "hero.title":
             'Transport <span class="text-amber-400">&</span> Lagerung',
           "hero.lead":
-            "L-S-M Logistik bietet sicheren und termingerechten Transport sowie flexible Lagerlösungen. Wir skalieren unsere Ressourcen — von Einzelaufträgen bis zu langfristiger Zusammenarbeit.",
+            "L-S-M Logistik bietet sicheren und termingerechten Transport sowie flexible Lagerlösungen. Wir passeen uns Ihren Bedürfnissen – von Einzelaufträgen bis  zu langfristigen Partnerschaften.",
           "hero.ctaPrimary": "Termin anfragen",
           "hero.ctaSecondary": "Leistungen ansehen",
           "hero.b1": "Inland und international",
